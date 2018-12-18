@@ -23,7 +23,7 @@ pages.map((v, i) => {
   entry[v] = `${pageRoot}/${v}/index.js`
   plugins.push(new HtmlWebpackPlugin({
     chunks: ['runtime', 'common', v],
-    filename: isDevMode ? `${v}.html` : `${buildConfig.templateName}/${v}.html`,
+    filename: isDevMode ? `${v}.html` : `${buildConfig.templateName ? buildConfig.templateName + '/' : ''}${v}.html`,
     template: `${pageRoot}/${v}/index.html`
   }))
 })
@@ -71,12 +71,12 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         use: [
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'],
+              presets: ['@babel/preset-react'],
               plugins: [
                 '@babel/plugin-transform-runtime',
                 '@babel/plugin-syntax-dynamic-import',

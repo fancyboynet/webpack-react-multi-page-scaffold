@@ -14,13 +14,13 @@ function createDevHistoryApiFallback () {
   if(!pages || !pages.length){
     return true
   }
-  let reg = new RegExp('^\\/(' + pages.join('|') + ')(\\/|$)')
-  return  {
+  let reg = new RegExp('^' + buildConfig.publicPath + '(' + pages.join('|') + ')(\\/|$)')
+  return {
     rewrites: [
       {
         from: reg,
         to(context) {
-          return `/${context.match[1]}.html`;
+          return `${buildConfig.publicPath}${context.match[1]}.html`;
         }
       }
     ]
@@ -50,8 +50,8 @@ let config = merge(common, {
   devtool: 'inline-source-map',
   output: {
     publicPath: buildConfig.publicPath,
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
     path: path.resolve(__dirname, `../${buildConfig.outputName}`)
   },
   devServer: {
