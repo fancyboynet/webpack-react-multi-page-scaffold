@@ -1,6 +1,6 @@
 {
   "name": "webpack-multi-page-scaffold",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -50,11 +50,13 @@
     "husky": "^1.0.0-rc.13",
     "install": "^0.11.0",
     "ip": "^1.1.5",
+    "lint-staged": "^8.1.5",
     "mini-css-extract-plugin": "^0.2.0",
     "optimize-css-assets-webpack-plugin": "^4.0.1",
     "postcss-loader": "^2.1.5",
     "shelljs": "^0.8.2",
     "style-loader": "^0.20.3",
+    "svg-inline-loader": "^0.8.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.29.5",
@@ -91,9 +93,15 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "lint-staged",
       "post-merge": "node ./script/check-package.js",
       "post-checkout": "node ./script/check-package.js"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
